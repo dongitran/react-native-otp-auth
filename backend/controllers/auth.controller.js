@@ -58,7 +58,19 @@ export const checkUser = async (req, res) => {
      */
 
     // send otp to phoneNumber number
-    await requestOtp(phoneNumber);
+    try {
+      await requestOtp(phoneNumber);
+    } catch (error) {
+      console.log(error, "request otp error");
+      res.status(200).json({
+        type: "failed",
+        message: "",
+        //data: {
+        //  userId: userCreateLog._id,
+        //},
+      });
+      return;
+    }
 
     res.status(200).json({
       type: "success",
@@ -109,7 +121,7 @@ export const confirmCreateUser = async (req, res) => {
     }
 
     // Validate token
-    const token = createJwtToken({ userId: user._id });
+    const token = await createJwtToken({ userId: user._id });
     console.log(token, "token created");
 
     res.status(201).json({
@@ -128,7 +140,7 @@ export const verifyToken = async (req, res) => {
     const { token } = req.body;
     console.log(token, "token");
 
-    if(!token || token.length === 0){
+    if (!token || token.length === 0) {
       res.status(200).json({
         status: LoginTokenStatusResponse.INVALID_TOKEN,
       });

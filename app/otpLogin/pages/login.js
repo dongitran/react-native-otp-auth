@@ -63,9 +63,7 @@ const LoginPage = ({ navigation }) => {
     const data = { phoneNumber: phoneNumber };
     try {
       const response = await axios.post(
-        `${
-          'https://0e7c-2405-4802-9047-9050-810-3d78-facc-51e4.ap.ngrok.io' /**Config.SERVER_URL */
-        }${Paths.REGISTER}`,
+        `${'http://localhost:8080' /**Config.SERVER_URL */}${Paths.REGISTER}`,
         data,
       );
       if (response.data.status === RegisterStatusResponse.PHONE_NUMBER_ALREADY_EXISTS) {
@@ -83,9 +81,7 @@ const LoginPage = ({ navigation }) => {
     const data = { token };
     try {
       const response = await axios.post(
-        `${
-          'https://0e7c-2405-4802-9047-9050-810-3d78-facc-51e4.ap.ngrok.io' /**Config.SERVER_URL */
-        }${Paths.LOGIN_TOKEN}`,
+        `${'http://localhost:8080' /**Config.SERVER_URL */}${Paths.LOGIN_TOKEN}`,
         data,
       );
       return response;

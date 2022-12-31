@@ -52,9 +52,7 @@ class FillOTp extends React.Component {
 
       const data = { phoneNumber: this.phoneNumber, otp: text };
       const response = await axios.post(
-        `${
-          'https://0e7c-2405-4802-9047-9050-810-3d78-facc-51e4.ap.ngrok.io' /**Config.SERVER_URL */
-        }${Paths.CONFIRM_REGISTER}`,
+        `${'http://localhost:8080' /**Config.SERVER_URL */}${Paths.CONFIRM_REGISTER}`,
         data,
       );
       console.log(response, 'response confirm');

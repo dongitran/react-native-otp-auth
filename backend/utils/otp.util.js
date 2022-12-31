@@ -29,7 +29,7 @@ export const fast2sms = async ({ message, contactNumber }, next) => {
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
-const verifySid = "VA4a2fca4291a16523cde9b95e957f80c9";
+const verifySid = process.env.TWILIO_VERIFY_OTP_SID;
 export const requestOtp = async (phoneNumber) => {
   return client.verify.v2
     .services(verifySid)
@@ -42,12 +42,13 @@ export const requestOtp = async (phoneNumber) => {
       return true;
     })
     .catch((err) => {
-      console.log(err);
-      return false;
+      console.log(err, 'requestOtp error');
+      throw err;
     });
 };
 
 export const verifyOtp = async (phoneNumber, otpCode) => {
+  console.log("verifyOtp");
   return client.verify.v2
     .services(verifySid)
     .verificationChecks.create({
